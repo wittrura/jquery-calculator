@@ -32,3 +32,17 @@ $('#equals').click(function() {
 
   $('#screen').text(eval(cleanText(expression)));
 });
+
+// TODO - add for logic keyboard input
+function translateKeyPress(key) {
+  if (key >= 48 && key <= 57 ) {
+
+  }
+  switch(key) {
+
+  }
+}
+
+$('body').keypress((e) => {
+  console.log(e.which);
+});
