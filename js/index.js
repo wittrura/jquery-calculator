@@ -16,14 +16,16 @@
 
     // if equals sign is clicked or typed, clean and evalute expression
     if (char === '=') {
-      return $('#screen').text(eval(cleanText(expression)));
+    return $('#screen').text(trueEval(cleanText(expression)));
+      // return $('#screen').text(eval(cleanText(expression)));
     }
 
     // handles similar to old style calculator - multiple operands do not appear in line
     // if operand is present and operand is clicked, evaluate then append
     // if operand is not present, and button is C, then clear, ELSE append what was clicked
     if(textContainsOperand(expression) && textContainsOperand(char)) {
-      $('#screen').text(eval(cleanText(expression)));
+      $('#screen').text(trueEval(cleanText(expression)));
+      // $('#screen').text(eval(cleanText(expression)));
       $('#screen').append(char);
     } else if (char === 'C') {
       $('#screen').text('');
@@ -45,7 +47,7 @@
       case '*':
       case 'x':
         return 'x';
-      case 45:
+      case '-':
         return '-';
       case 'Enter':
       case '=':
@@ -55,6 +57,30 @@
         return 'C';
       default:
       return null;
+    }
+  }
+
+  // evalute without eval method
+  function trueEval(expression) {
+    // split the string into operand, operator, operand
+    let operands = expression.split(/[\*/\-+]/g);
+    let operator = expression.replace(/[\d]+/g,'')
+
+    // checks that there are two operands before evaluating
+    if (operands.length !== 1) {
+      // convert operands to integer and execute expression based on operand
+      switch (operator) {
+        case '*':
+        return parseInt(operands[0]) * parseInt(operands[1]);
+        case '/':
+        return parseInt(operands[0]) / parseInt(operands[1]);
+        case '+':
+        return parseInt(operands[0]) + parseInt(operands[1]);
+        case '-':
+        return parseInt(operands[0]) - parseInt(operands[1]);
+        default:
+        return null;
+      }
     }
   }
 
